@@ -61,7 +61,7 @@ class ItemController < ApplicationController
   def filter_by_booked
     #items=Item.joins(:bookings).where.not(bookings:{start:(params[:start]..params[:end]),end:(params[:start]..params[:end]),status:'End'}).union(Item.left_joins(:bookings).where(bookings:{id:nil}))#.paginate(page:params[:page],per_page:5)
     itemsID=Item.joins(:bookings).select("items.id").where(bookings:{start:(params[:start]..params[:end]),end:(params[:start]..params[:end])})
-    items=Item.where.not(id:itemsID)..paginate(page:params[:page],per_page:5)
+    items=Item.where.not(id:itemsID).paginate(page:params[:page],per_page:5)
     render json:items
   end
 
